@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>防抖与节流</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="div1" style="width: 400px;height: 300px;background: aqua; margin-left: 400px;overflow-y: scroll">
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+    <p>黄河远上白云间</p>
+</div>
+<script>
+  // 防抖函数 触发事件后经过一个delaytime触发处理函数，每次触发事件后首先清除上一个事件的定时任务，再设定本次的定时任务
+  function debounce (fn, wait) {
+    let timeout = null
+    return function () {
+      if (timeout !== null) {
+        clearTimeout(timeout)
+      }
+      // 清除上次事件的处理，设定本地触发事件的处理
+      timeout = setTimeout(fn, wait)
+    }
+  }
+
+  // 处理函数
+  function handle () {
+    console.log('...arguments', arguments)
+    console.log('处理函数: ', Date.now())
+  }
+
+  // document.getElementById('div1').addEventListener('scroll', debounce(handle, 1000))
+
+  //节流函数  在一个设定的时间段里只触发一次,在这个时间段里再次触发事件则丢弃
+  function throttle (fn, wait) {
+    let prev = Date.now()
+    return function () {
+      let context = this
+      let args = arguments
+      let now = Date.now()
+      if ((now - prev) >= wait) {
+        fn.apply(context, args)
+        prev = Date.now()
+      }
+    }
+  }
+
+  document.getElementById('div1').addEventListener('scroll', throttle(handle, 1000))
+</script>
+</body>
+</html>
